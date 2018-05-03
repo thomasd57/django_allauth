@@ -13,6 +13,8 @@ class Command(BaseCommand):
             SUPERUSER_USERID = (str, 'admin'),
             SUPERUSER_EMAIL  = (str, 'admin@example.com'),
             SUPERUSER_PASSWORD = (str, 'adminadmin'),
+            DOMAIN_NAME = (str, settings.DOMAIN_NAME),
+            COMPANY_NAME = (str, settings.COMPANY_NAME),
 
             GITHUB_CLIENT_ID = (str, ''),
             GITHUB_SECRET    = (str, ''),
@@ -46,13 +48,11 @@ class Command(BaseCommand):
 
     def create_social_account(self, name, client_id, secret):
         app = SocialApp.objects.create(provider = name.lower(), name = name, client_id = client_id, secret = secret)
-        app.sites.add(self.site)
+        app.sites.add(Site.objects.get_current())
         app.save()
 
     def create_site(self):
-        self.site = Site.objects.get_current()
-        self.site.domain_name = settings.DOMAIN_NAME
-        self.site.display_name = settings.COMPANY_NAME
-        self.site.save()
-
-
+        site = Site.objects.get_current()
+        site.domain = self.env('DOMAIN_NAME')
+        site.name = self.env('COMPANY_NAME')
+        site.save()
