@@ -133,6 +133,8 @@ AUTHENTICATION_BACKENDS = (
 )
 
 SITE_ID = 1
+DOMAIN_NAME  = 'localhost'
+COMPANY_NAME = 'django_allauth'
 
 LOGIN_REDIRECT_URL = 'home'
 
