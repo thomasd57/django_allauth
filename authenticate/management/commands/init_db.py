@@ -21,7 +21,7 @@ class Command(BaseCommand):
         )
 
     def add_arguments(self, parser):
-        parser.add_argument('--env_file', help = 'Environment file', default = 'env.env')
+        parser.add_argument('--env_file', help = 'Environment file', default = 'secrets.env')
 
     def handle(self, *args, **options):
         self.read_env(options['env_file'])
