@@ -1,12 +1,15 @@
 {% load socialaccount %}
 
-<h1>Django Allauth Tutorial</h1>
+<h1>Welcome to Django Allauth Tutorial</h1>
 {% if user.is_authenticated %}
-<p>Welcome {{ user.username }} !!!</p>
+<p>Your username is {{ user.username }}</p>
+<p>Your email is {{ user.email }}</p>
 <p><a href="{% url 'account_logout' %}">Logout</a></p>
 {% else %}
-<p><a href="{% provider_login_url 'github' %}">Login with Github</a></p>
-<p>or</p>
-<p><a href="{% url 'account_login' %}">Login with Email"</a></p>
+<h2>Login or Register</h2>
+<ul>
+    <li><a href="/admin">Login as admin</a></li>
+    <li><a href="{% url 'account_login' %}">Login or register as user</a></li>
+</ul>
 
 {% endif %}
