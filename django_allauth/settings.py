@@ -150,3 +150,5 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 # Eliminate need to provide username, as it's a very old practice
 ACCOUNT_USERNAME_REQUIRED = False
+# Don't ask to enter password twice
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
