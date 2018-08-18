@@ -1,4 +1,5 @@
 {% extends "account/base.html" %}
+{% load staticfiles %}
 
 {% load i18n %}
 {% load account socialaccount %}
@@ -7,54 +8,53 @@
 
 {% block content %}
 
-<!-- Default form login -->
-<form class="text-center border border-light p-5">
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <!-- Default form login -->
+      <form class="text-center border border-light p-5">
+      <p class="h4 mb-4">Sign in</p>
+      <!-- Email -->
+      <input type="email" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail">
+      <!-- Password -->
+      <input type="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">
 
-    <p class="h4 mb-4">Sign in</p>
-
-    <!-- Email -->
-    <input type="email" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail">
-
-    <!-- Password -->
-    <input type="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">
-
-    <div class="d-flex justify-content-around">
+      <div class="d-flex justify-content-around">
         <div>
-            <!-- Remember me -->
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember">
-                <label class="custom-control-label" for="defaultLoginFormRemember">Remember me</label>
-            </div>
+          <!-- Remember me -->
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember">
+            <label class="custom-control-label" for="defaultLoginFormRemember">Remember me</label>
+          </div>
         </div>
         <div>
-            <!-- Forgot password -->
-            <a href="">Forgot password?</a>
-        </div>
+        <!-- Forgot password -->
+        <a href="">Forgot password?</a>
+      </div>
     </div>
 
     <!-- Sign in button -->
     <button class="btn btn-info btn-block my-4" type="submit">Sign in</button>
-
-    <!-- Register -->
-    <p>Not a member?
-        <a href="">Register</a>
-    </p>
-
     <!-- Social login -->
-    <p>or sign in with:</p>
-
-    <a type="button" class="light-blue-text mx-2">
-        <i class="fa fa-facebook"></i>
+    <p>Sign in with:</p>
+    <a type="button">
+        <img src="{% static 'png/facebook.png' %}" alt="Facebook">
     </a>
-    <a type="button" class="light-blue-text mx-2">
-        <i class="fa fa-twitter"></i>
+    <a type="button">
+        <img src="{% static 'png/google.png' %}" alt="Google">
     </a>
-    <a type="button" class="light-blue-text mx-2">
-        <i class="fa fa-linkedin"></i>
+    <a type="button">
+        <img src="{% static 'png/linkedin.png' %}" alt="LinkedIn">
     </a>
-    <a type="button" class="light-blue-text mx-2">
-        <i class="fa fa-github"></i>
+    <a type="button">
+        <img src="{% static 'png/github.png' %}" alt="Github">
     </a>
+    <a type="button">
+        <img src="{% static 'png/sports-engine.png' %}" alt="Sports Engine">
+    </a>
+  </div>
+</div>
+</div>
 
 </form>
 <!-- Default form login -->
