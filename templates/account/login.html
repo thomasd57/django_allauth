@@ -13,20 +13,38 @@
     <div class="col-6">
       <!-- Default form login -->
       <form class="text-center border border-light p-5">
-      <p class="h4 mb-4">Sign in</p>
-      <!-- Email -->
-      <input type="email" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail">
-      <!-- Password -->
-      <input type="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">
+        <!-- Social login -->
+        <p class="h4 mb-4">Sign In with Social Account</p>
+        <a type="button" class="mr-2">
+          <img src="{% static 'png/facebook.png' %}" alt="Facebook">
+        </a>
+        <a type="button" class="mr-2">
+          <img src="{% static 'png/google.png' %}" alt="Google">
+        </a>
+        <a type="button" class="mr-2">
+          <img src="{% static 'png/linkedin.png' %}" alt="LinkedIn">
+        </a>
+        <a type="button" class="mr-2">
+          <img src="{% static 'png/github.png' %}" alt="Github">
+        </a>
+        <a type="button" class="mr-2">
+          <img src="{% static 'png/sports-engine.png' %}" alt="Sports Engine">
+        </a>
+        <hr>
+        <p class="h4 mb-4 mt-4">or Sign In with Email</p>
+        <!-- Email -->
+        <input type="email" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail">
+        <!-- Password -->
+        <input type="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">
 
-      <div class="d-flex justify-content-around">
-        <div>
-          <!-- Remember me -->
-          <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember">
-            <label class="custom-control-label" for="defaultLoginFormRemember">Remember me</label>
+        <div class="d-flex justify-content-around">
+          <div>
+            <!-- Remember me -->
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember">
+              <label class="custom-control-label" for="defaultLoginFormRemember">Remember me</label>
+            </div>
           </div>
-        </div>
         <div>
         <!-- Forgot password -->
         <a href="">Forgot password?</a>
@@ -35,23 +53,6 @@
 
     <!-- Sign in button -->
     <button class="btn btn-info btn-block my-4" type="submit">Sign in</button>
-    <!-- Social login -->
-    <p>Sign in with:</p>
-    <a type="button">
-        <img src="{% static 'png/facebook.png' %}" alt="Facebook">
-    </a>
-    <a type="button">
-        <img src="{% static 'png/google.png' %}" alt="Google">
-    </a>
-    <a type="button">
-        <img src="{% static 'png/linkedin.png' %}" alt="LinkedIn">
-    </a>
-    <a type="button">
-        <img src="{% static 'png/github.png' %}" alt="Github">
-    </a>
-    <a type="button">
-        <img src="{% static 'png/sports-engine.png' %}" alt="Sports Engine">
-    </a>
   </div>
 </div>
 </div>
