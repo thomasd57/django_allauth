@@ -1,65 +1,33 @@
 {% extends "account/base.html" %}
 
 {% load staticfiles %}
+{% load static %}
 {% load i18n %}
 {% load account socialaccount %}
 
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
-    <!--
-    <h1>{% trans "Login or Register" %}</h1>
-    {% get_providers as socialaccount_providers %}
-    {% if socialaccount_providers %}
-        <p>{% blocktrans with site.name as site_name %}Please login or register with one
-            of your existing third party accounts. {% endblocktrans %}</p>
-        <div class="socialaccount_ballot">
-            <ul class="socialaccount_providers">
-                {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-            </ul>
-            <div class="login-or">{% trans 'or' %}</div>
-        </div>
-        {% include "socialaccount/snippets/login_extra.html" %}
-    {% endif %}
-    <p>Login with Email</p>
-    <form class="login" method="POST" action="{% url 'account_login' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        {% if redirect_field_value %}
-            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-        {% endif %}
-        <p><a class="button secondaryAction" href="{% url 'account_reset_password' %}">
-            {% trans "Forgot Password?" %}</a></p>
-        <button class="primaryAction" type="submit">{% trans "Login" %}</button>
-    </form>
-    -->
-
+  {% get_providers as socialaccount_providers %}
   <div class="container">
     <div class="row">
-      <div class="col-6">
-
+      <div class="col-8">
         {{ form.non_field_errors }}
         <form class="login text-center border border-light p-5" method="POST" action="{% url 'account_login' %}">
-        <p class="h4 mb-4">Sign In with Social Account</p>
-        <a type="button" class="mr-2">
-          <img src="{% static 'png/facebook.png' %}" alt="Facebook">
-        </a>
-        <a type="button" class="mr-2">
-          <img src="{% static 'png/google.png' %}" alt="Google">
-        </a>
-        <a type="button" class="mr-2">
-          <img src="{% static 'png/linkedin.png' %}" alt="LinkedIn">
-        </a>
-        <a type="button" class="mr-2 socialaccount_provider github"
-            href="/accounts/github/login/?process=login">
-          <img src="{% static 'png/github.png' %}" alt="Github">
-        </a>
-        <a type="button" class="mr-2">
-          <img src="{% static 'png/sports-engine.png' %}" alt="Sports Engine">
-        </a>
-        <hr>
-
-        <p class="h4 mb-4 mt-4">or Sign In with Email</p>
+        {% if socialaccount_providers %}
+            <p class="h4 mb-4">Sign In with Social Account</p>
+    
+            <div class="socialaccount_ballot">
+              {% for provider in socialaccount_providers %}
+              <a type="button" class="mr-2 socialaccount_provider {{provider.id}}"
+                              href="{% provider_login_url provider.id process="login" %}">
+                  <img src="{% get_static_prefix %}png/{{ provider.id }}.png" alt="{{provider.name}}">
+              </a>
+            </div>  
+            {% endfor %}
+            <hr>
+        {% endif %}
+        <p class="h4 mb-4 mt-4">Sign In with Email</p>
           {% csrf_token %}
           <input type="email" name="{{ form.login.html_name }}" required 
               id="{{ form.login.id_for_label }}" class="form-control mb-4" placeholder="E-mail">
