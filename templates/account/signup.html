@@ -13,13 +13,17 @@
     <div class="col-6">
       <p class="h4 mb-4">{% trans "Register" %}</p>
 
-      <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+      <form class="signup text-center border border-light p-5" 
+          id="signup_form" method="post" action="{% url 'account_signup' %}">
         {% csrf_token %}
-        {{ form.as_p }}
+        <input type="email" name="{{ form.email.html_name }}" required 
+          id="{{ form.email.id_for_label }}" class="form-control mb-4" placeholder="E-mail">
+        <input type="password" name="{{ form.password1.html_name }}" required 
+          id="{{ form.password1.id_for_label }}" class="form-control" placeholder="Password">
         {% if redirect_field_value %}
-        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
-        <button type="submit">{% trans "Sign Up" %} &raquo;</button>
+        <button class="btn btn-info my-4 btn-block" type="submit">{% trans "Register" %} &raquo;</button>
       </form>
     </div>
   </div>
