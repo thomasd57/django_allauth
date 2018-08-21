@@ -19,12 +19,12 @@
     
             <div class="socialaccount_ballot">
               {% for provider in socialaccount_providers %}
-              <a type="button" class="mr-2 socialaccount_provider {{provider.id}}"
+                <a type="button" class="mr-2 socialaccount_provider {{provider.id}}"
                               href="{% provider_login_url provider.id process="login" %}">
                   <img src="{% get_static_prefix %}png/{{ provider.id }}.png" alt="{{provider.name}}">
-              </a>
+                </a>
+              {% endfor %}
             </div>  
-            {% endfor %}
             <hr>
         {% endif %}
         <p class="h4 mb-4 mt-4">Sign In with Email</p>
