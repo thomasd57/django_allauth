@@ -16,6 +16,8 @@ class Command(BaseCommand):
             DOMAIN_NAME = (str, settings.DOMAIN_NAME),
             COMPANY_NAME = (str, settings.COMPANY_NAME),
 
+            GOOGLE_CLIENT_ID = (str, ''),
+            GOOGLE_SECRET    = (str, ''),
             GITHUB_CLIENT_ID = (str, ''),
             GITHUB_SECRET    = (str, ''),
         )
@@ -27,7 +29,7 @@ class Command(BaseCommand):
         self.read_env(options['env_file'])
         self.create_superuser()
         self.create_site()
-        for provider in ('GITHUB', ):
+        for provider in ('GITHUB', 'GOOGLE' ):
             if len(self.env(provider + '_CLIENT_ID')):
                 self.create_social_account(provider.capitalize(), 
                             self.env(provider + '_CLIENT_ID'), 

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
 
     'authenticate',
@@ -124,10 +125,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = ( os.path.join(BASE_DIR, 'static'), )
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = ( os.path.join(BASE_DIR, 'static'), )
 
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
@@ -148,7 +148,7 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 
 # Make email verification mandatory to avoid junk email accounts
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+SOCIAL_ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 # Eliminate need to provide username, as it's a very old practice
 ACCOUNT_USERNAME_REQUIRED = False

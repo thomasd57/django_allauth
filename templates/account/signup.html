@@ -1,41 +1,34 @@
-{% extends "base.html" %}
+{% extends "account/base.html" %}
 
 {% load i18n %}
 {% load account socialaccount %}
 
-{% block head_title %}Register{% endblock %}
+{% block head_title %}{% trans "Register" %}{% endblock %}
 
 {% block content %}
+
 
 <div class="container">
   <div class="row">
     <div class="col-6">
-      <form class="text-center border border-light p-5">
-         <p class="h4 mb-4">Register</p>
+      <p class="h4 mb-4">{% trans "Register" %}</p>
 
-         <div class="form-row mb-4">
-           <div class="col">
-             <!-- First name -->
-             <input type="text" id="register_first_name" class="form-control" placeholder="First name">
-           </div>
-         <div class="col">
-           <!-- Last name -->
-           <input type="text" id="register_last_name" class="form-control" placeholder="Last name">
-         </div>
-       </div>
-        <!-- E-mail -->
-        <input type="email" id="register_email" class="form-control mb-4" placeholder="E-mail">
-        <!-- Password -->
-        <input type="password" id="register_password" class="form-control" placeholder="Password" aria-describedby="defaultRegisterFormPasswordHelpBlock">
-        <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
-          At least 8 characters and 1 digit
-        </small>
-
-        <!-- Sign up button -->
-        <button class="btn btn-info my-4 btn-block" type="submit">Register</button>
+      <form class="signup text-center border border-light p-5" 
+          id="signup_form" method="post" action="{% url 'account_signup' %}">
+        {% csrf_token %}
+        <input type="email" name="{{ form.email.html_name }}" required 
+          id="{{ form.email.id_for_label }}" class="form-control mb-4" placeholder="E-mail">
+        {{ form.email.errors }}
+        <input type="password" name="{{ form.password1.html_name }}" required 
+          id="{{ form.password1.id_for_label }}" class="form-control" placeholder="Password">
+        {{ form.password1.errors }}
+        {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+        <button class="btn btn-info my-4 btn-block" type="submit">{% trans "Register" %} &raquo;</button>
       </form>
     </div>
   </div>
 </div>
-<!-- Default form register -->
+
 {% endblock %}
