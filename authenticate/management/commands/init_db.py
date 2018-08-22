@@ -20,6 +20,8 @@ class Command(BaseCommand):
             GOOGLE_SECRET    = (str, ''),
             GITHUB_CLIENT_ID = (str, ''),
             GITHUB_SECRET    = (str, ''),
+            SPORTS_ENGINE_CLIENT_ID = (str, ''),
+            SPORTS_ENGINE_SECRET    = (str, ''),
         )
 
     def add_arguments(self, parser):
@@ -29,7 +31,7 @@ class Command(BaseCommand):
         self.read_env(options['env_file'])
         self.create_superuser()
         self.create_site()
-        for provider in ('GITHUB', 'GOOGLE' ):
+        for provider in ('GITHUB', 'GOOGLE', 'SPORTS_ENGINE'):
             if len(self.env(provider + '_CLIENT_ID')):
                 self.create_social_account(provider.capitalize(), 
                             self.env(provider + '_CLIENT_ID'), 
@@ -42,6 +44,7 @@ class Command(BaseCommand):
                 self.env('SUPERUSER_EMAIL'),
                 self.env('SUPERUSER_PASSWORD')
         )
+        print('Created superuser', self.env('SUPERUSER_USERID'))
 
     def read_env(self, env_file):
         env_file = os.path.join(settings.BASE_DIR, env_file)
@@ -52,9 +55,11 @@ class Command(BaseCommand):
         app = SocialApp.objects.create(provider = name.lower(), name = name, client_id = client_id, secret = secret)
         app.sites.add(Site.objects.get_current())
         app.save()
+        print('Create social account', name)
 
     def create_site(self):
         site = Site.objects.get_current()
         site.domain = self.env('DOMAIN_NAME')
         site.name = self.env('COMPANY_NAME')
         site.save()
+        print('Created site', site.domain)

@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
 
+    'socialaccount.providers.sports_engine',
+
     'authenticate',
 ]
 
