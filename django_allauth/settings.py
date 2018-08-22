@@ -124,6 +124,48 @@ USE_L10N = True
 
 USE_TZ = True
 
+class PathProcessor:
+    ''' Shorten absolute paths in verbose formatter '''
+    def filter(self, record):
+        common_path = os.path.commonpath([str(BASE_DIR), record.pathname])
+        record.pathname = record.pathname[len(common_path) + 1:]
+        return True
+
+# Logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'formatter': {
+            'format': '%(levelname)s [%(pathname)s:%(lineno)d] %(message)s',
+            'datefmt': "%d/%b/%Y %H:%M:%S"
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': os.environ.get('LOG_LEVEL', 'ERROR'),
+            'class': 'logging.StreamHandler',
+            'formatter': 'formatter',
+            'filters': ['path_processor'],
+        },
+    },
+    'filters': {
+        'path_processor': {
+            '()': PathProcessor,
+        },
+    },
+    'loggers': {
+        'accounts': {
+            'handlers': ['console'],
+            'propagate': True,
+        },
+        'django_allauth': {
+            'handlers': ['console'],
+            'propagate': True,
+        },
+    },
+}
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
