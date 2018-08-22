@@ -163,6 +163,18 @@ LOGGING = {
             'handlers': ['console'],
             'propagate': True,
         },
+        'django': {
+            'handlers': ['console'],
+            'propagate': True,
+        },
+        'allauth': {
+            'handlers': ['console'],
+            'propagate': True,
+        },
+        'socialaccount': {
+            'handlers': ['console'],
+            'propagate': True,
+        },
     },
 }
 
