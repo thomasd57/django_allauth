@@ -3,15 +3,12 @@ from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount
 from allauth.socialaccount.providers.oauth2.provider import OAuth2Provider
 
+from .utils import debug_save_data
+
 class SportsEngineAccount(ProviderAccount):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.logger = logging.getLogger(__name__)
-
-    def get_profile_url(self):
-        profile_url = self.account.extra_data.get('html_url')
-        self.logger.debug('profile_url=' + str(profile_url))
-        return profile_url
 
     def get_avatar_url(self):
         avatar_url =  self.account.extra_data.get('avatar_url')
@@ -42,17 +39,24 @@ class SportsEngineProvider(OAuth2Provider):
         self.logger = logging.getLogger(__name__)
 
     def extract_uid(self, data):
-        data = str(data['identity']['id'])
-        self.logger.debug('extract_uid=' + data)
-        return data
+        debug_save_data(data, 'extract_uid.json')
+        id_ = str(data[0]['id'])
+        self.logger.debug('extract_uid=' + id_)
+        return id_
 
     def extract_common_fields(self, data):
-        fields = dict(email=data.get('email'),
-                      username=data.get('login'),
-                      name=data.get('name'))
+        debug_save_data(data, 'extract_common_fields.json')
+        data = data[0]
+        email = data['email_addresses'][0]['address']
+        fields = {
+            'email'     : email,
+            'username'  : email.split('@')[0],
+            'name'      : data['first_name'] + ' ' + data['last_name'],
+            'avatar_url': data.get('profile_image_url'),
+        }
         self.logger.debug('extract_common_fields,email={}, username={}, name={}'.format(
             fields['email'], fields['username'], fields['name']))
         return fields
 
-# providers_classes = [SportsEngineProvider]
+providers_classes = [SportsEngineProvider]
 providers.registry.register(SportsEngineProvider)
