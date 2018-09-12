@@ -20,6 +20,8 @@ class Command(BaseCommand):
             GOOGLE_SECRET    = (str, ''),
             GITHUB_CLIENT_ID = (str, ''),
             GITHUB_SECRET    = (str, ''),
+            FACEBOOK_CLIENT_ID = (str, ''),
+            FACEBOOK_SECRET    = (str, ''),
             SPORTS_ENGINE_CLIENT_ID = (str, ''),
             SPORTS_ENGINE_SECRET    = (str, ''),
         )
@@ -31,7 +33,7 @@ class Command(BaseCommand):
         self.read_env(options['env_file'])
         self.create_superuser()
         self.create_site()
-        for provider in ('GITHUB', 'GOOGLE', 'SPORTS_ENGINE'):
+        for provider in ('GITHUB', 'FACEBOOK', 'GOOGLE', 'SPORTS_ENGINE'):
             if len(self.env(provider + '_CLIENT_ID')):
                 self.create_social_account(provider.capitalize(), 
                             self.env(provider + '_CLIENT_ID'), 

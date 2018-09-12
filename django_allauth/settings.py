@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.facebook',
 
     'socialaccount.providers.sports_engine',
 
@@ -58,6 +59,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'request_logging.middleware.LoggingMiddleware',
 ]
 
 ROOT_URLCONF = 'django_allauth.urls'
@@ -157,27 +160,37 @@ LOGGING = {
     'loggers': {
         'accounts': {
             'handlers': ['console'],
+            'level': 'DEBUG',
             'propagate': True,
         },
         'django_allauth': {
             'handlers': ['console'],
+            'level': 'DEBUG',
             'propagate': True,
         },
         'django': {
             'handlers': ['console'],
+            'level': 'DEBUG',
             'propagate': True,
         },
         'allauth': {
             'handlers': ['console'],
+            'level': 'DEBUG',
             'propagate': True,
         },
         'socialaccount': {
             'handlers': ['console'],
+            'level': 'DEBUG',
             'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
         },
     },
 }
-
+# REQUEST_LOGGING_ENABLE_COLORIZE = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
@@ -210,3 +223,25 @@ SOCIAL_ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_USERNAME_REQUIRED = False
 # Don't ask to enter password twice
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
+
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook':
+       {'METHOD': 'oauth2',
+        'SCOPE': ['email','public_profile'],
+        # 'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'FIELDS': [
+            'id',
+            'email',
+            'name',
+            'first_name',
+            'last_name',
+            'verified',
+            'locale',
+            'timezone',
+        ],
+        'EXCHANGE_TOKEN': True,
+        'VERIFIED_EMAIL': False,
+        'LOCALE_FUNC': lambda request: 'kr_KR',
+        'VERSION': 'v3.1'
+        }
+    }
